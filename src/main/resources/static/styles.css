@@ -1,4 +1,7 @@
 body{
-font-size:18px;
-color:"blue";
+font-size:14px;
+background-color:blue;
+}
+.error {
+  color: red;
 }

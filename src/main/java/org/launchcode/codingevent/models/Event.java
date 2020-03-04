@@ -3,43 +3,36 @@ package org.launchcode.codingevent.models;
 //import javax.persistence.Entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 @Entity
-public class Event {
-    @Id
-    @GeneratedValue
-    private int id;
+public class Event extends AbstractEntity {
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
     @Size(max = 500, message = "Description too long!")
     private String description;
     @NotBlank(message = "Email is required.")
-    @Email(message="invalid format")
+    @Email(message = "invalid format")
     private String email;
-    private EventType type;
+
+
+    @ManyToOne
+    @NotNull(message = "Category is required")
+    private EventCategory eventCategory;
+
     public Event() {
     }
 
-    public Event(String name, String description,String email,EventType type) {
+    public Event(String name, String description, String email, EventCategory eventCategory) {
         this.name = name;
-        this.description=description;
-        this.email=email;
-        this.type=type;
+        this.description = description;
+        this.email = email;
+        this.eventCategory = eventCategory;
 
-    }
-    public int getId() {
-
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -57,6 +50,7 @@ public class Event {
     public void setName(String name) {
         this.name = name;
     }
+
     public String getEmail() {
         return email;
     }
@@ -65,29 +59,18 @@ public class Event {
         this.email = email;
     }
 
-    public EventType getType() {
-        return type;
+    public void setEventCategory(EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
-    public void setType(EventType type) {
-        this.type = type;
+    public EventCategory getEventCategory() {
+        return eventCategory;
     }
 
     @Override
     public String toString() {
         return name;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Event event = (Event) o;
-        return id == event.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }
+
+

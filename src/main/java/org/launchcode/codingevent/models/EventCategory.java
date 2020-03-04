@@ -1,17 +1,11 @@
 package org.launchcode.codingevent.models;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 @Entity
-public class EventCategory {
-    @Id
-    @GeneratedValue
-    private int id;
+public class EventCategory extends  AbstractEntity {
     @NotBlank
 
     @NotBlank(message = "Name is required.")
@@ -29,31 +23,9 @@ public class EventCategory {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public EventCategory(String name) {
 
         this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EventCategory that = (EventCategory) o;
-        return id == that.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 
     @Override

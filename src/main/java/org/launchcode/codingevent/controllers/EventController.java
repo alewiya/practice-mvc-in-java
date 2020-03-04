@@ -1,8 +1,8 @@
 package org.launchcode.codingevent.controllers;
 
+import org.launchcode.codingevent.data.EventCategoryRepository;
 import org.launchcode.codingevent.data.EventRepository;
 import org.launchcode.codingevent.models.Event;
-import org.launchcode.codingevent.models.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +16,9 @@ import javax.validation.Valid;
 public class EventController {
     @Autowired
     private EventRepository eventRepository;
+    @Autowired
+    private EventCategoryRepository eventCategoryRepository;
+
     @GetMapping
     public String allEvents(Model model) {
         model.addAttribute("events",eventRepository.findAll());
@@ -26,7 +29,9 @@ public class EventController {
     @GetMapping("create")
     public String createEventForm(Model model){
         model.addAttribute(new Event());
-        model.addAttribute("types", EventType.values());
+        model.addAttribute("categories", eventCategoryRepository.findAll());
+
+
         return "events/create";
     }
     @PostMapping("create")
